@@ -81,9 +81,9 @@ def sync(client, config, catalog, state):
 
 
 def main():
-    args = singer.utils.parse_args(required_config_keys=['token', 'start_date'])
+    args = singer.utils.parse_args(required_config_keys=['access_token', 'start_date'])
 
-    webclient = WebClient(token=args.config.get("token"))
+    webclient = WebClient(token=args.config.get("access_token"))
     client = SlackClient(webclient=webclient, config=args.config)
 
     if args.discover:

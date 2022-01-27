@@ -37,7 +37,7 @@ Create a config file containing the API token and a start date, e.g.:
 
 ```json
 {
-  "token":"xxxx",
+  "access_token":"xxxx",
   "start_date":"2020-05-01T00:00:00"
 }
 ```
