@@ -267,6 +267,7 @@ class ConversationHistoryStream(SlackStream):
                                                                 ts=data.get('thread_ts'))
                                             threads_stream.write_state()
                                         except:
+                                            #Skip the thread on error
                                             LOGGER.exception(
                                                 f"Failed to sync thread {data.get('thread_ts')}"
                                             )    
