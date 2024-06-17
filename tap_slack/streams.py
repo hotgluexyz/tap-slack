@@ -261,10 +261,16 @@ class ConversationHistoryStream(SlackStream):
                                         # If threads is selected we need to sync all the
                                         # threaded replies to this message
                                         threads_stream.write_schema()
-                                        threads_stream.sync(mdata=threads_mdata,
-                                                            channel_id=channel_id,
-                                                            ts=data.get('thread_ts'))
-                                        threads_stream.write_state()
+                                        try:
+                                            threads_stream.sync(mdata=threads_mdata,
+                                                                channel_id=channel_id,
+                                                                ts=data.get('thread_ts'))
+                                            threads_stream.write_state()
+                                        except:
+                                            LOGGER.exception(
+                                                f"Failed to sync thread {data.get('thread_ts')}"
+                                            )    
+                                        
                                     with singer.Transformer(
                                             integer_datetime_fmt=
                                             "unix-seconds-integer-datetime-parsing"
