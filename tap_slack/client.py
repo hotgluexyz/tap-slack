@@ -84,6 +84,7 @@ class SlackClient(object):
                           on_backoff=log_backoff_attempt)
     def get_messages(self, channel, oldest, latest):
         try:
+            LOGGER.info(f"Getting messages for channel: {channel}, oldest: {oldest}, latest: {latest}")
             messages = self.webclient \
                 .conversations_history(channel=channel,
                                        oldest=oldest,
@@ -103,6 +104,7 @@ class SlackClient(object):
             else:
                 raise err
 
+        LOGGER.info(f"Got messages, processing now {len(messages.get('messages', []))}")
         return messages
 
     @backoff.on_exception(backoff.constant,
