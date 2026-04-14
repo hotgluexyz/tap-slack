@@ -2,14 +2,13 @@
 Client wrapping the python Slack SDK.
 Handles retry/backoff logic using the Singer framework annotations.
 """
+import logging
 import time
 
 import backoff
-import logging
-import singer
 from slack.errors import SlackApiError
 
-LOGGER = singer.get_logger()
+LOGGER = logging.getLogger(__name__)
 
 logging.getLogger('backoff').setLevel(logging.CRITICAL)
 
