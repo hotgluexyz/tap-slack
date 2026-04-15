@@ -100,7 +100,7 @@ class SlackClient(object):
                     'slackbot is not in'.format(
                         channel
                     ))
-                messages = None
+                return None
             else:
                 raise err
 

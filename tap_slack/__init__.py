@@ -2,7 +2,6 @@ import sys
 import json
 import singer
 from slack import WebClient
-
 from tap_slack.client import SlackClient
 from tap_slack.streams import AVAILABLE_STREAMS
 from tap_slack.catalog import generate_catalog
@@ -93,6 +92,7 @@ def main():
             auto_join(client=client, config=args.config)
         sync(client=client, config=args.config, catalog=args.catalog, state=args.state)
 
+from tap_slack.tap import TapSlack
 
 if __name__ == '__main__':
-    main()
+    TapSlack.cli()
