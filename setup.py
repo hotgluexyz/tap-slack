@@ -9,7 +9,6 @@ setup(name='tap-slack',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
       py_modules=['tap_slack'],
       install_requires=[
-          'singer-python==5.9.0',
           'hotglue-singer-sdk~=1.0.26',
           'slackclient==2.6.0',
       ],
