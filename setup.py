@@ -22,7 +22,7 @@ setup(name='tap-slack',
       python_requires='>=3.6',
       entry_points='''
           [console_scripts]
-          tap-slack=tap_slack:main
+          tap-slack=tap_slack.tap:TapSlack.cli
       ''',
       packages=find_packages(),
       package_data={
