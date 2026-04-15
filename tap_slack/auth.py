@@ -12,5 +12,3 @@ class SlackOAuthAuthenticator(OAuthAuthenticator):
             "refresh_token": self._tap.config.get("refresh_token"),
             "grant_type": "refresh_token",
         }
-
-    
