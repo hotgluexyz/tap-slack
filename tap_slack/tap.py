@@ -18,7 +18,7 @@ class TapSlack(Tap):
     config_jsonschema = th.PropertiesList(
         th.Property("client_id", th.StringType),
         th.Property("client_secret", th.StringType),
-        th.Property("access_token", th.StringType, required=True),
+        th.Property("access_token", th.StringType),
         th.Property("start_date", th.DateTimeType, required=True),
         th.Property("date_window_size", th.StringType),
         th.Property("lookback_window", th.StringType),
