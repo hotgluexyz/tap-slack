@@ -36,28 +36,7 @@ class TapSlack(Tap):
 
     def discover_streams(self):
         return []
-
-    def _load_catalog(self, catalog):
-        if isinstance(catalog, singer.catalog.Catalog):
-            return catalog
-        if isinstance(catalog, dict):
-            return singer.catalog.Catalog.from_dict(catalog)
-        if isinstance(catalog, str):
-            return singer.catalog.Catalog.load(catalog)
-        if catalog is None:
-            raise ValueError("Catalog is required for sync.")
-        raise ValueError(f"Unsupported catalog input type: {type(catalog)}")
-
-    def _load_state(self, state):
-        if state is None:
-            return {}
-        if isinstance(state, dict):
-            return state
-        if isinstance(state, str):
-            with open(state) as state_file:
-                return json.load(state_file)
-        raise ValueError(f"Unsupported state input type: {type(state)}")
-
+    
     def _resolve_access_token(self, config):
         refresh_token = config.get("refresh_token")
         refresh_token_value = getattr(refresh_token, "contents", refresh_token)
@@ -77,8 +56,8 @@ class TapSlack(Tap):
         return token
 
     def _build_client(self):
+        token = self._resolve_access_token(self.config)
         config = dict(self.config)
-        token = self._resolve_access_token(config)
         webclient = WebClient(token=token)
         return SlackClient(webclient=webclient, config=config), config
 
@@ -88,8 +67,8 @@ class TapSlack(Tap):
 
     def run_sync(self, catalog=None, state=None):
         client, config = self._build_client()
-        parsed_catalog = self._load_catalog(catalog)
-        parsed_state = self._load_state(state)
+        parsed_catalog = singer.catalog.Catalog.load(catalog)
+        parsed_state = json.load(open(state))
 
         if config.get("join_public_channels", "false") == "true":
             auto_join(client=client, config=config)
