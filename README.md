@@ -33,11 +33,24 @@ The tap requires a [Slack API token](https://slack.dev/python-slack-sdk/installa
  - `users:read`
  - `users:read.email`
 
-Create a config file containing the API token and a start date, e.g.:
+Create a config file containing credentials and a start date.
+
+Long-lived token mode:
 
 ```json
 {
   "access_token":"xxxx",
+  "start_date":"2020-05-01T00:00:00"
+}
+```
+
+Refresh-token OAuth mode:
+
+```json
+{
+  "refresh_token":"xxxx",
+  "client_id":"xxxx",
+  "client_secret":"xxxx",
   "start_date":"2020-05-01T00:00:00"
 }
 ```
