@@ -59,14 +59,15 @@ class TapSlack(Tap):
         token = self._resolve_access_token(self.config)
         config = dict(self.config)
         webclient = WebClient(token=token)
-        return SlackClient(webclient=webclient, config=config), config
+        return SlackClient(webclient=webclient, config=config)
 
     def run_discovery(self):
-        client, _ = self._build_client()
+        client = self._build_client()
         discover(client=client)
 
     def run_sync(self, catalog=None, state=None):
-        client, config = self._build_client()
+        client = self._build_client()
+        config = dict(self.config)
         parsed_catalog = singer.catalog.Catalog.load(catalog)
         parsed_state = json.load(open(state))
 
