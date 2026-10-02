@@ -69,8 +69,11 @@ class TapSlack(Tap):
         client = self._build_client()
         config = dict(self.config)
         parsed_catalog = singer.catalog.Catalog.load(catalog)
-        with open(state) as state_file:
-            parsed_state = json.load(state_file)
+        if state:
+            with open(state) as state_file:
+                parsed_state = json.load(state_file)
+        else:
+            parsed_state = {}
 
         if config.get("join_public_channels", "false") == "true":
             auto_join(client=client, config=config)
